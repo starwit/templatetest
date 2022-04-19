@@ -7,9 +7,9 @@ function UserMain() {
     return (
         <>
           <React.Fragment>
-            <Route exact path="/user" component={UserOverview}/>
-            <Route exact path="/user/create" component={UserDetail}/>
-            <Route exact path="/user/update/:id" component={UserDetail}/>
+            <Route exact path="/users" component={UserOverview}/>
+            <Route exact path="/users/create" component={UserDetail}/>
+            <Route exact path="/users/update/:id" component={UserDetail}/>
           </React.Fragment>
         </>
     );
