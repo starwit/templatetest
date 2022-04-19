@@ -6,11 +6,11 @@ import OrganisationDetail from "./OrganisationDetail";
 function OrganisationMain() {
     return (
         <>
-          <React.Fragment>
-            <Route exact path="/organisation" component={OrganisationOverview}/>
-            <Route exact path="/organisation/create" component={OrganisationDetail}/>
-            <Route exact path="/organisation/update/:id" component={OrganisationDetail}/>
-          </React.Fragment>
+            <React.Fragment>
+                <Route exact path="/organisation" component={OrganisationOverview}/>
+                <Route exact path="/organisation/create" component={OrganisationDetail}/>
+                <Route exact path="/organisation/update/:id" component={OrganisationDetail}/>
+            </React.Fragment>
         </>
     );
 }

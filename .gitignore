@@ -51,3 +51,6 @@ webclient/src/main/app/npm-debug.log*
 webclient/src/main/app/yarn-debug.log*
 webclient/src/main/app/yarn-error.log*
 
+webclient/app/src/app/AppConfig.js
+.vscode/settings.json
+webclient/app/package-lock.json

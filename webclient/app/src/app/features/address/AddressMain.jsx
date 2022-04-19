@@ -6,11 +6,11 @@ import AddressDetail from "./AddressDetail";
 function AddressMain() {
     return (
         <>
-          <React.Fragment>
-            <Route exact path="/address" component={AddressOverview}/>
-            <Route exact path="/address/create" component={AddressDetail}/>
-            <Route exact path="/address/update/:id" component={AddressDetail}/>
-          </React.Fragment>
+            <React.Fragment>
+                <Route exact path="/address" component={AddressOverview}/>
+                <Route exact path="/address/create" component={AddressDetail}/>
+                <Route exact path="/address/update/:id" component={AddressDetail}/>
+            </React.Fragment>
         </>
     );
 }
