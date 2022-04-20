@@ -1,12 +1,24 @@
 import React from "react";
-import {TextField, Button} from "@mui/material";
+import {Button} from "@mui/material";
 import {useTranslation} from "react-i18next";
+import {useEffect} from "react";
 import UpdateFormStyles from "./UpdateFormStyles";
+import {isValid} from "../../modifiers/DefaultModifier";
+import ValidatedTextField from "../inputfields/validatedTextField/ValidatedTextField";
 
 function UpdateForm(props) {
-    const {entity, attributes, prefix, handleSubmit, handleChange} = props;
+    const {entity, fields, prefix, handleSubmit, handleChange} = props;
     const {t} = useTranslation();
     const updateFormStyles = UpdateFormStyles();
+    const [hasFormError, setHasFormError] = React.useState(false);
+
+    useEffect(() => {
+        onEntityChange();
+    }, [entity]);
+
+    function onEntityChange() {
+        setHasFormError(!isValid(fields, entity));
+    }
 
     return (
         <form
@@ -14,25 +26,28 @@ function UpdateForm(props) {
             autoComplete="off"
             onSubmit={handleSubmit}>
 
-            {attributes.map(attribute =>
-                <React.Fragment key={attribute.name}>
-                    <TextField
-                        inputProps={attribute.inputProps}
-                        key={attribute.name}
-                        id={"input-" + attribute.name}
-                        label={t(prefix + "." + attribute.name)}
-                        name={attribute.name}
-                        type={attribute.type}
-                        value={entity[attribute.name] !== null ? entity[attribute.name] : ""}
+            {fields.map(field =>
+                <React.Fragment key={field.name}>
+                    <ValidatedTextField
+                        inputProps={field.inputProps}
+                        key={field.name}
+                        id={"input-" + field.name}
+                        label={t(prefix + "." + field.name)}
+                        helperText={t(prefix + "." + field.name + ".hint")}
+                        name={field.name}
+                        type={field.type}
+                        value={entity[field.name] !== null ? entity[field.name] : ""}
                         className={updateFormStyles.textField}
                         onChange={handleChange}
                         margin="normal"
+                        isCreate={!entity?.id}
+                        regex={field.regex}
                     />
                     <br/>
                 </React.Fragment>
             )}
             <br/>
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" disabled={hasFormError} >
                 {t("button.submit")}
             </Button>
         </form>

@@ -5,17 +5,15 @@ import {useTranslation} from "react-i18next";
 import UpdateForm from "./../../commons/form/UpdateForm";
 import {useParams, useHistory} from "react-router";
 import UserRest from "../../services/UserRest";
+import {handleChange} from "../../modifiers/DefaultModifier";
+import {userFields, userDefault} from "../../modifiers/UserModifier";
 
 function UserDetail() {
     const {t} = useTranslation();
     const history = useHistory();
     const userRest = useMemo(() => new UserRest(), []);
-    const attributes = [
-        {name: "firstName", type: "string"},
-        {name: "lastName", type: "string"}
-    ];
 
-    const [user, setUser] = useImmer({firstName: "", lastName: "", id: undefined});
+    const [user, setUser] = useImmer(userDefault);
     const [titleKey, setTitleKey] = useState(null);
     const {id} = useParams();
 
@@ -34,22 +32,16 @@ function UserDetail() {
         }
     }
 
-    const handleChange = event => {
-        const target = event.target;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const name = target.name;
-        setUser(draft => {draft[name] = value;});
-    };
-
-    const handleSubmit = event => {
-        // turn off page reload
+    function handleSubmit(event) {
+    // turn off page reload
         event.preventDefault();
+
         if (!id) {
             userRest.create(user).then(goBack);
         } else {
             userRest.update(user).then(goBack);
         }
-    };
+    }
 
     const goBack = () => {
         history.push("/user");
@@ -60,10 +52,10 @@ function UserDetail() {
             <Typography variant="h1" color="primary">{t(titleKey)}</Typography>
             <UpdateForm
                 entity={user}
-                attributes={attributes}
+                fields={userFields}
                 prefix='user'
                 handleSubmit={handleSubmit}
-                handleChange={handleChange}
+                handleChange={e => handleChange(e, setUser)}
             />
         </Container>
     );

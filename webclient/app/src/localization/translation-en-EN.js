@@ -1,4 +1,8 @@
 const translationEnEN = {
+    "button.submit": "OK",
+    "button.create": "Add",
+    "button.update": "Edit",
+    "button.delete": "Delete",
     "address": "Address",
     "address.title": "Addresses",
     "address.id": "id",
@@ -12,7 +16,9 @@ const translationEnEN = {
     "user.update.title": "Edit User",
     "user.id": "id",
     "user.firstName": "firstName",
+    "user.firstName.hint": "has to match validation rules",
     "user.lastName": "lastName",
+    "user.lastName.hint": "has to match validation rules",
     "organisation": "Organisation",
     "organisation.title": "Organisations",
     "organisation.id": "id",

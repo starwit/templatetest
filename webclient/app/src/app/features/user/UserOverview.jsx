@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import OverviewTable from "../../commons/table/OverviewTable";
 import UserRest from "../../services/UserRest";
 import {useHistory} from "react-router";
+import {userFields} from "../../modifiers/UserModifier";
 
 function UserOverview() {
     const [selected, setSelected] = useState(undefined);
@@ -12,20 +13,15 @@ function UserOverview() {
     const history = useHistory();
     const [users, setUsers] = useState();
 
+    useEffect(() => {
+        reload();
+    }, []);
+
     function reload() {
         userRest.findAll().then(response => {
             setUsers(response.data);
         });
     }
-
-    useEffect(() => {
-        reload();
-    }, []);
-
-    const columns = [
-        {title: t("user.firstName"), field: "firstName"},
-        {title: t("user.lastName"), field: "lastName"}
-    ];
 
     function goToCreate() {
         history.push("/user/create");
@@ -49,13 +45,18 @@ function UserOverview() {
         <Container>
             <Typography variant={"h2"} gutterBottom>{t("user.title")}</Typography>
             <Button onClick={goToCreate} variant="contained" color="primary">{t("button.create")}</Button>
-            <Button onClick={goToUpdate} variant="contained" color="primary">{t("button.update")}</Button>
-            <Button onClick={handleDelete} variant="contained" color="primary">{t("button.delete")}</Button>
+            <Button onClick={goToUpdate} variant="contained" color="primary" disabled={!selected?.id} >
+                {t("button.update")}
+            </Button>
+            <Button onClick={handleDelete} variant="contained" color="primary" disabled={!selected?.id}>
+                {t("button.delete")}
+            </Button>
             <OverviewTable
                 entities={users}
+                prefix={"user"}
                 selected={selected}
-                onRowClick={setSelected}
-                columns={columns}/>
+                onSelect={setSelected}
+                fields={userFields}/>
         </Container>
     );
 }

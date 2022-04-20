@@ -76,6 +76,7 @@ class Theme {
         MuiButton: {
             styleOverrides: {
                 // Name of the slot
+
                 textPrimary: {
                     fontWeight: 600
                 },

@@ -21,9 +21,10 @@ const HeaderStyles = makeStyles(theme => ({
         display: "flex",
         justifyContent: "left",
         paddingLeft: 20,
+        color: theme.palette.secondary.main,
         [theme.breakpoints.up("sm")]: {
             display: "flex",
-            width: "100%",
+            width: "20%",
             justifyContent: "center"
         }
     },

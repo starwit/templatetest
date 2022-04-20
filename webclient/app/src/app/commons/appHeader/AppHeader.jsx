@@ -18,7 +18,7 @@ function AppHeader(props) {
             <AppBar position="fixed" color="inherit" className={headerStyles.appBar}>
                 <Toolbar className={headerStyles.toolbar}>
                     <img className={headerStyles.menuLogoImg} src={logo} alt="Logo of lirejarp"/>
-                    <Typography className={headerStyles.menuTitle} variant="h5" noWrap>
+                    <Typography className={headerStyles.menuTitle} variant="h2" noWrap>
                         {title}
                     </Typography>
                     <div className={headerStyles.spacer}/>
