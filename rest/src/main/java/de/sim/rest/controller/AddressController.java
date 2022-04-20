@@ -38,7 +38,7 @@ public class AddressController {
 
     @Autowired
     private AddressService addressService;
-    
+
     @Operation(summary = "Get all addresss")
     @GetMapping
     public List<AddressEntity> findAll() {
@@ -60,7 +60,7 @@ public class AddressController {
     @Operation(summary = "Update {entity.name?lower_case}")
     @PutMapping
     public AddressEntity update(@Valid @RequestBody AddressEntity entity) {
-        return update(entity);
+        return addressService.saveOrUpdate(entity);
     }
 
     @Operation(summary = "Delete {entity.name?lower_case}")

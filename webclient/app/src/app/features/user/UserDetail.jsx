@@ -16,20 +16,23 @@ function UserDetail() {
     ];
 
     const [user, setUser] = useImmer({firstName: "", lastName: "", id: undefined});
-    const [summitFunction, setSummitFunction] = useState(null);
     const [titleKey, setTitleKey] = useState(null);
     const {id} = useParams();
 
     useEffect(() => {
+        onIdChange();
+    }, [id]);
+
+    function onIdChange() {
         if (!id) {
-            setSummitFunction(userRest.create);
             setTitleKey("user.create.title");
         } else {
-            setSummitFunction(userRest.update);
             setTitleKey("user.update.title");
-            userRest.findById(id).then(response => setUser(response.data));
+            userRest.findById(id).then(response => {
+                setUser(response.data);
+            });
         }
-    }, [id]);
+    }
 
     const handleChange = event => {
         const target = event.target;
@@ -41,8 +44,11 @@ function UserDetail() {
     const handleSubmit = event => {
         // turn off page reload
         event.preventDefault();
-
-        summitFunction(user).then(goBack);
+        if (!id) {
+            userRest.create(user).then(goBack);
+        } else {
+            userRest.update(user).then(goBack);
+        }
     };
 
     const goBack = () => {

@@ -38,7 +38,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
+
     @Operation(summary = "Get all users")
     @GetMapping
     public List<UserEntity> findAll() {
@@ -60,7 +60,7 @@ public class UserController {
     @Operation(summary = "Update {entity.name?lower_case}")
     @PutMapping
     public UserEntity update(@Valid @RequestBody UserEntity entity) {
-        return update(entity);
+        return userService.saveOrUpdate(entity);
     }
 
     @Operation(summary = "Delete {entity.name?lower_case}")
