@@ -1,15 +1,16 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import {TextField} from "@mui/material";
+import {TextField, Button} from "@mui/material";
 import {useTranslation} from "react-i18next";
+import UpdateFormStyles from "./UpdateFormStyles";
 
 function UpdateForm(props) {
-    const {classes, entity, attributes, prefix, handleSubmit, handleChange} = props;
+    const {entity, attributes, prefix, handleSubmit, handleChange} = props;
     const {t} = useTranslation();
+    const updateFormStyles = UpdateFormStyles();
 
     return (
         <form
-            className={classes.container}
+            className={updateFormStyles.container}
             autoComplete="off"
             onSubmit={handleSubmit}>
 
@@ -23,7 +24,7 @@ function UpdateForm(props) {
                         name={attribute.name}
                         type={attribute.type}
                         value={entity[attribute.name] !== null ? entity[attribute.name] : ""}
-                        className={classes.textField}
+                        className={updateFormStyles.textField}
                         onChange={handleChange}
                         margin="normal"
                     />
