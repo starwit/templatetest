@@ -12,9 +12,9 @@ function OverviewTable(props) {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {entities.map(entity =>
+                {entities?.map(entity =>
                     <TableRow key={entity.id}
-                        onClick={() => onRowClick(entity.id)}
+                        onClick={() => onRowClick(entity)}
                         selected={selected && entity.id === selected.id}
                     >
                         {columns.map(column =>

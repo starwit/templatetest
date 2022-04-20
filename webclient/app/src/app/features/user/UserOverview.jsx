@@ -22,40 +22,25 @@ function UserOverview() {
         reload();
     }, []);
 
-    const userAll = [
-        {
-            "firstName": "Anett",
-            "lastName": "Huebner"
-        },
-        {
-            "firstName": "Anett",
-            "lastName": "Huebner"
-        },
-        {
-            "firstName": "Anett",
-            "lastName": "Huebner"
-        }
-    ];
-
     const columns = [
         {title: t("user.firstName"), field: "firstName"},
         {title: t("user.lastName"), field: "lastName"}
     ];
 
     function goToCreate() {
-        history.push("/users/create");
+        history.push("/user/create");
     }
 
     function goToUpdate() {
         if (!!selected) {
-            history.push("/users/update/" + selected.id);
+            history.push("/user/update/" + selected.id);
             setSelected(undefined);
         }
     }
 
     function handleDelete() {
         if (!!selected) {
-            addressRest.delete(selected.id).then(fetchAll);
+            userRest.delete(selected.id).then(reload);
             setSelected(undefined);
         }
     }
@@ -67,7 +52,7 @@ function UserOverview() {
             <Button onClick={goToUpdate} variant="contained" color="primary">{t("button.update")}</Button>
             <Button onClick={handleDelete} variant="contained" color="primary">{t("button.delete")}</Button>
             <OverviewTable
-                entities={userAll}
+                entities={users}
                 selected={selected}
                 onRowClick={setSelected}
                 columns={columns}/>
