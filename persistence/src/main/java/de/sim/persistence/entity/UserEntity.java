@@ -5,7 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotBlank;
 
 /**
  * User Entity class
@@ -16,10 +17,12 @@ import org.hibernate.validator.constraints.NotBlank;
 public class UserEntity extends AbstractEntity<Long> {
 
 //entity fields
+    @Pattern(regexp = "[A-Z][a-zA-Z0-9]{1,100}")
     @NotBlank
     @Column(name="FIRSTNAME", nullable = false)
     private String firstName;
     
+    @Pattern(regexp = "[A-Z][a-zA-Z0-9]{1,100}")
     @NotBlank
     @Column(name="LASTNAME", nullable = false)
     private String lastName;

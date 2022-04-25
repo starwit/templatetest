@@ -66,7 +66,7 @@ public class OrganisationController {
     @Operation(summary = "Delete {entity.name?lower_case}")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) throws NotificationException {
-        this.organisationService.delete(id);
+        organisationService.delete(id);
     }
 
     @ExceptionHandler(value = { EntityNotFoundException.class })

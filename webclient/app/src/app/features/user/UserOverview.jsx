@@ -11,7 +11,7 @@ function UserOverview() {
     const {t} = useTranslation();
     const userRest = useMemo(() => new UserRest(), []);
     const history = useHistory();
-    const [users, setUsers] = useState();
+    const [userAll, setUserAll] = useState();
 
     useEffect(() => {
         reload();
@@ -19,7 +19,7 @@ function UserOverview() {
 
     function reload() {
         userRest.findAll().then(response => {
-            setUsers(response.data);
+            setUserAll(response.data);
         });
     }
 
@@ -52,7 +52,7 @@ function UserOverview() {
                 {t("button.delete")}
             </Button>
             <OverviewTable
-                entities={users}
+                entities={userAll}
                 prefix={"user"}
                 selected={selected}
                 onSelect={setSelected}

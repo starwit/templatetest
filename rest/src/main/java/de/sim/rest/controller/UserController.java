@@ -66,7 +66,7 @@ public class UserController {
     @Operation(summary = "Delete {entity.name?lower_case}")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) throws NotificationException {
-        this.userService.delete(id);
+        userService.delete(id);
     }
 
     @ExceptionHandler(value = { EntityNotFoundException.class })

@@ -52,4 +52,3 @@ webclient/src/main/app/yarn-debug.log*
 webclient/src/main/app/yarn-error.log*
 
 .vscode/settings.json
-webclient/app/package-lock.json
