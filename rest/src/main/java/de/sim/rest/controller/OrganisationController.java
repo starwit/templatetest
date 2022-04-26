@@ -39,7 +39,7 @@ public class OrganisationController {
     @Autowired
     private OrganisationService organisationService;
 
-    @Operation(summary = "Get all organisations")
+    @Operation(summary = "Get all organisation")
     @GetMapping
     public List<OrganisationEntity> findAll() {
         return this.organisationService.findAll();
@@ -51,19 +51,19 @@ public class OrganisationController {
         return this.organisationService.findById(id);
     }
 
-    @Operation(summary = "Create {entity.name?lower_case}")
+    @Operation(summary = "Create organisation")
     @PostMapping
     public OrganisationEntity save(@Valid @RequestBody OrganisationEntity entity) {
         return update(entity);
     }
 
-    @Operation(summary = "Update {entity.name?lower_case}")
+    @Operation(summary = "Update organisation")
     @PutMapping
     public OrganisationEntity update(@Valid @RequestBody OrganisationEntity entity) {
         return organisationService.saveOrUpdate(entity);
     }
 
-    @Operation(summary = "Delete {entity.name?lower_case}")
+    @Operation(summary = "Delete organisation")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) throws NotificationException {
         organisationService.delete(id);
