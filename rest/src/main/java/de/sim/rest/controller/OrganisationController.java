@@ -38,7 +38,7 @@ public class OrganisationController {
 
     @Autowired
     private OrganisationService organisationService;
-    
+
     @Operation(summary = "Get all organisations")
     @GetMapping
     public List<OrganisationEntity> findAll() {
@@ -60,13 +60,13 @@ public class OrganisationController {
     @Operation(summary = "Update {entity.name?lower_case}")
     @PutMapping
     public OrganisationEntity update(@Valid @RequestBody OrganisationEntity entity) {
-        return update(entity);
+        return organisationService.saveOrUpdate(entity);
     }
 
     @Operation(summary = "Delete {entity.name?lower_case}")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) throws NotificationException {
-        this.organisationService.delete(id);
+        organisationService.delete(id);
     }
 
     @ExceptionHandler(value = { EntityNotFoundException.class })

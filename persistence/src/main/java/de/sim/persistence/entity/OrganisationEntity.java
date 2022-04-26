@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Organisation Entity class

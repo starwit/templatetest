@@ -3,7 +3,7 @@ import CrudRest from "./CrudRest";
 class AddressRest extends CrudRest {
 
     constructor() {
-        super(window.location.pathname + "api/addresss");
+        super(window.location.pathname + "api/address");
     }
 
 }

@@ -1,7 +1,7 @@
 const appItems = [
-    {title: "address.title", link: "/addresss/"},
-    {title: "user.title", link: "/users/"},
-    {title: "organisation.title", link: "/organisations/"},
+    {title: "user.title", link: "/user/"},
+    {title: "address.title", link: "/address/"},
+    {title: "organisation.title", link: "/organisation/"},
 ];
 
 export {appItems};
