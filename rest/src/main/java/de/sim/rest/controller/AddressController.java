@@ -39,7 +39,7 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    @Operation(summary = "Get all addresss")
+    @Operation(summary = "Get all address")
     @GetMapping
     public List<AddressEntity> findAll() {
         return this.addressService.findAll();
@@ -51,19 +51,19 @@ public class AddressController {
         return this.addressService.findById(id);
     }
 
-    @Operation(summary = "Create {entity.name?lower_case}")
+    @Operation(summary = "Create address")
     @PostMapping
     public AddressEntity save(@Valid @RequestBody AddressEntity entity) {
         return update(entity);
     }
 
-    @Operation(summary = "Update {entity.name?lower_case}")
+    @Operation(summary = "Update address")
     @PutMapping
     public AddressEntity update(@Valid @RequestBody AddressEntity entity) {
         return addressService.saveOrUpdate(entity);
     }
 
-    @Operation(summary = "Delete {entity.name?lower_case}")
+    @Operation(summary = "Delete address")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) throws NotificationException {
         addressService.delete(id);

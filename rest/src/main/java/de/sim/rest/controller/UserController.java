@@ -39,7 +39,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Operation(summary = "Get all users")
+    @Operation(summary = "Get all user")
     @GetMapping
     public List<UserEntity> findAll() {
         return this.userService.findAll();
@@ -51,19 +51,19 @@ public class UserController {
         return this.userService.findById(id);
     }
 
-    @Operation(summary = "Create {entity.name?lower_case}")
+    @Operation(summary = "Create user")
     @PostMapping
     public UserEntity save(@Valid @RequestBody UserEntity entity) {
         return update(entity);
     }
 
-    @Operation(summary = "Update {entity.name?lower_case}")
+    @Operation(summary = "Update user")
     @PutMapping
     public UserEntity update(@Valid @RequestBody UserEntity entity) {
         return userService.saveOrUpdate(entity);
     }
 
-    @Operation(summary = "Delete {entity.name?lower_case}")
+    @Operation(summary = "Delete user")
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") Long id) throws NotificationException {
         userService.delete(id);
