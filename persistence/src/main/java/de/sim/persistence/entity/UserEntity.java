@@ -1,17 +1,19 @@
 package de.sim.persistence.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import javax.persistence.JoinColumn;
-import javax.validation.constraints.Pattern;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotBlank;
-import javax.persistence.OneToOne;
-import javax.persistence.CascadeType;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 /**
  * User Entity class
@@ -21,27 +23,27 @@ import java.util.Set;
 @Table(name = "USER")
 public class UserEntity extends AbstractEntity<Long> {
 
-//entity fields
+    // entity fields
     @Pattern(regexp = "[A-Z][a-zA-Z0-9]{1,100}")
     @NotBlank
-    @Column(name="FIRSTNAME", nullable = false)
+    @Column(name = "FIRSTNAME", nullable = false)
     private String firstName;
 
     @Pattern(regexp = "[A-Z][a-zA-Z0-9]{1,100}")
     @NotBlank
-    @Column(name="LASTNAME", nullable = false)
+    @Column(name = "LASTNAME", nullable = false)
     private String lastName;
 
-
-//entity relations
-    @OneToOne(cascade = CascadeType.ALL)
+    // entity relations
+    @JsonFilter("filterId")
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
     private AddressEntity address;
 
-    @ManyToMany(mappedBy="user")
+    @ManyToMany(mappedBy = "user")
     private Set<OrganisationEntity> organisation;
 
-//entity fields getters and setters
+    // entity fields getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -58,7 +60,7 @@ public class UserEntity extends AbstractEntity<Long> {
         this.lastName = lastName;
     }
 
-//entity relations getters and setters
+    // entity relations getters and setters
     public AddressEntity getAddress() {
         return address;
     }

@@ -31,6 +31,7 @@ const translationEnEN = {
     "app.baseName": "templatetest",
     "home.title": "Welcome",
     "home.welcome": "Welcome to templatetest",
+    "select.none": "None",
     "button.submit": "OK",
     "button.create": "Add",
     "button.update": "Edit",

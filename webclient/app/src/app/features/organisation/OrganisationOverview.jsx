@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import OverviewTable from "../../commons/table/OverviewTable";
 import OrganisationRest from "../../services/OrganisationRest";
 import {useHistory} from "react-router";
-import {organisationFields} from "../../modifiers/OrganisationModifier";
+import {organisationOverviewFields} from "../../modifiers/OrganisationModifier";
 
 function UserOverview() {
     const [selected, setSelected] = useState(undefined);
@@ -56,7 +56,7 @@ function UserOverview() {
                 prefix={"organisation"}
                 selected={selected}
                 onSelect={setSelected}
-                fields={organisationFields}/>
+                fields={organisationOverviewFields}/>
         </Container>
     );
 }
