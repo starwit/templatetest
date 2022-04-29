@@ -31,8 +31,15 @@ function OrganisationDetail() {
         ];
         Promise.all(functions).then(values => {
             selectLists.push({name: "address", data: values[0].data});
-            selectLists.push({name: "user", data: values[0].data});
-            addSelectLists(fields, setFields, selectLists);
+            selectLists.push({name: "user", data: values[1].data});
+            if (id) {
+                entityRest.findById(id).then(response => {
+                    setEntity(response.data);
+                    addSelectLists(response.data, fields, setFields, selectLists);
+                });
+            } else {
+                addSelectLists(entity, fields, setFields, selectLists);
+            }
         });
     }
 

@@ -14,11 +14,14 @@ function handleSelect(event, setData) {
     setData(draft => {draft[name] = {id: value};});
 }
 
-function handleMultiSelect(event, setData) {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-    setData(draft => {draft[name] = {id: value};});
+function handleMultiSelect(event, fields, setFields) {
+    const value = event.target.value;
+    const toSave = produce(fields, draft => {
+        draft?.map(field => {
+            field.selectedIds = value;
+        });
+    });
+    setFields(toSave);
 }
 
 function isValid(fields, data) {
@@ -45,11 +48,17 @@ function isInput(fieldType) {
     return fieldType === "string" || fieldType == "int";
 }
 
-function addSelectLists(fields, setFields, selects) {
+function addSelectLists(entity, fields, setFields, selects) {
     const toSave = produce(fields, draft => {
         draft?.map(field => {
-            if (isSelect(field.type)) {
+            if (isSelect(field.type) || isMultiSelect(field.type)) {
                 field.selectList = selects.find(list => list.name === field.name).data;
+            }
+            if (isMultiSelect(field.type) && entity[field.name]) {
+                field.selectedIds = [];
+                entity[field.name].map(item => {
+                    field.selectedIds.push(item.id);
+                });
             }
         });
     });
@@ -63,6 +72,12 @@ function prepareForSave(entity, fields) {
                 if (draft[field.name]?.id == -1) {
                     draft[field.name] = null;
                 }
+            } else if (isMultiSelect(field.type)) {
+                const selectedEntity = [];
+                field.selectedIds.map(selectedId => {
+                    selectedEntity.push({id: selectedId});
+                });
+                draft[field.name] = selectedEntity;
             }
         });
     });

@@ -18,7 +18,8 @@ const entityFields = [
         type: "ManyToMany",
         regex: null,
         selectList: [],
-        display: ["name"]
+        display: ["firstName", "lastName"],
+        selectedIds: []
     }
 ];
 
