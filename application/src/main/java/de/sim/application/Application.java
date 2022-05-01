@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication(scanBasePackages = { "de.sim.rest", "de.sim.service", "de.sim.persistence",
         "de.sim.application.config" })
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication.run(new Class[] { Application.class }, args);
     }

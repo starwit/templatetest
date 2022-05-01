@@ -1,13 +1,11 @@
 package de.sim.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
 
 /**
  * Address Entity class
@@ -36,7 +34,7 @@ public class AddressEntity extends AbstractEntity<Long> {
     private OrganisationEntity organisation;
 
     @JsonFilter("filterId")
-    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "address")
     private UserEntity user;
 
     // entity fields getters and setters

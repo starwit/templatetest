@@ -1,4 +1,4 @@
-const addressDefault = {
+const entityDefault = {
     city: "",
     street: "",
     streetNr: "",
@@ -6,11 +6,22 @@ const addressDefault = {
     id: undefined
 };
 
-const addressFields = [
+const entityFields = [
     {name: "city", type: "string", regex: null},
     {name: "street", type: "string", regex: null},
     {name: "streetNr", type: "string", regex: null},
     {name: "cityCode", type: "string", regex: null},
 ];
 
-export {addressDefault, addressFields};
+const addressOverviewFields = [
+    {name: "city", type: "string", regex: null},
+    {name: "street", type: "string", regex: null},
+    {name: "streetNr", type: "string", regex: null},
+    {name: "cityCode", type: "string", regex: null}
+];
+
+export {
+    entityDefault,
+    entityFields,
+    addressOverviewFields
+};

@@ -1,7 +1,6 @@
 const entityDefault = {
     name: "",
-    id: undefined,
-    address: {id: 0}
+    id: undefined
 };
 
 const entityFields = [
@@ -11,16 +10,14 @@ const entityFields = [
         type: "OneToOne",
         regex: null,
         selectList: [],
-        display: ["street"]
-    },
-    {
-        name: "user",
-        type: "ManyToMany",
-        regex: null,
-        selectList: [],
-        display: ["firstName", "lastName"],
+        display: [
+            "city",
+            "street",
+            "streetNr",
+            "cityCode"
+        ],
         selectedIds: []
-    }
+    },
 ];
 
 const organisationOverviewFields = [

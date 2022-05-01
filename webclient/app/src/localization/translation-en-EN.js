@@ -8,6 +8,8 @@ const translationEnEN = {
     "user.firstName.hint": "has to match validation rules",
     "user.lastName": "lastName",
     "user.lastName.hint": "has to match validation rules",
+    "user.address": "address",
+    "user.organisation": "organisation",
     "address": "Address",
     "address.title": "Address",
     "address.create.title": "Create Address",
@@ -28,13 +30,14 @@ const translationEnEN = {
     "organisation.id": "id",
     "organisation.name": "name",
     "organisation.name.hint": "has to match validation rules",
+    "organisation.address": "address",
     "app.baseName": "templatetest",
     "home.title": "Welcome",
     "home.welcome": "Welcome to templatetest",
-    "select.none": "None",
     "button.submit": "OK",
     "button.create": "Add",
     "button.update": "Edit",
-    "button.delete": "Delete"
+    "button.delete": "Delete",
+    "select.none": "None"
 };
 export default translationEnEN;
