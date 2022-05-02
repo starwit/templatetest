@@ -7,7 +7,7 @@ class OrganisationRest extends CrudRest {
     }
 
     findAllWithoutAddress() {
-        return axios.put(this.baseUrl + "/find-without-address/");
+        return axios.get(this.baseUrl + "/find-without-address/");
     }
 }
 export default OrganisationRest;

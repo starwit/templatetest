@@ -7,11 +7,11 @@ class AddressRest extends CrudRest {
     }
 
     findAllWithoutOrganisation() {
-        return axios.put(this.baseUrl + "/find-without-organisation/");
+        return axios.get(this.baseUrl + "/find-without-organisation/");
     }
 
     findAllWithoutUser() {
-        return axios.put(this.baseUrl + "/find-without-user/");
+        return axios.get(this.baseUrl + "/find-without-user/");
     }
 }
 export default AddressRest;
