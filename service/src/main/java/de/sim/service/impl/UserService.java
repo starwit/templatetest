@@ -1,5 +1,5 @@
 package de.sim.service.impl;
-
+import java.util.List;
 import de.sim.persistence.entity.UserEntity;
 import de.sim.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +21,7 @@ public class UserService implements ServiceInterface<UserEntity, UserRepository>
         return userRepository;
     }
 
+    public List<UserEntity> findAllWithoutAddress() {
+        return userRepository.findAllWithoutAddress();
+    }
 }

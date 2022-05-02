@@ -1,63 +1,57 @@
-import {Container, Typography} from "@mui/material";
-import React, {useState, useMemo, useEffect} from "react";
+import React, {useMemo, useEffect} from "react";
+import {useParams} from "react-router";
 import {useImmer} from "use-immer";
-import {useTranslation} from "react-i18next";
-import UpdateForm from "./../../commons/form/UpdateForm";
-import {useParams, useHistory} from "react-router";
 import OrganisationRest from "../../services/OrganisationRest";
-import {handleChange} from "../../modifiers/DefaultModifier";
-import {organisationFields, organisationDefault} from "../../modifiers/OrganisationModifier";
+import AddressRest from "../../services/AddressRest";
+import {
+    entityDefault,
+    entityFields
+} from "../../modifiers/OrganisationModifier";
+import EntityDetail from "../../commons/form/EntityDetail";
+import {addSelectLists} from "../../modifiers/DefaultModifier";
 
 function OrganisationDetail() {
-    const {t} = useTranslation();
-    const history = useHistory();
-    const organisationRest = useMemo(() => new OrganisationRest(), []);
-
-    const [organisation, setOrganisation] = useImmer(organisationDefault);
-    const [titleKey, setTitleKey] = useState(null);
+    const [entity, setEntity] = useImmer(entityDefault);
+    const [fields, setFields] = useImmer(entityFields);
+    const entityRest = useMemo(() => new OrganisationRest(), []);
+    const addressRest = useMemo(() => new AddressRest(), []);
     const {id} = useParams();
 
     useEffect(() => {
-        onIdChange();
+        reloadSelectLists();
     }, [id]);
 
-    function onIdChange() {
-        if (!id) {
-            setTitleKey("organisation.create.title");
-        } else {
-            setTitleKey("organisation.update.title");
-            organisationRest.findById(id).then(response => {
-                setOrganisation(response.data);
-            });
-        }
+    function reloadSelectLists() {
+        const selectLists = [];
+        const functions = [
+            addressRest.findAllWithoutOrganisation(),
+        ];
+        Promise.all(functions).then(values => {
+            selectLists.push({name: "address", data: values[0].data});
+            if (id) {
+                entityRest.findById(id).then(response => {
+                    setEntity(response.data);
+                    addSelectLists(response.data, fields, setFields, selectLists);
+                });
+            } else {
+                addSelectLists(entity, fields, setFields, selectLists);
+            }
+        });
     }
-
-    function handleSubmit(event) {
-    // turn off page reload
-        event.preventDefault();
-
-        if (!id) {
-            organisationRest.create(organisation).then(goBack);
-        } else {
-            organisationRest.update(organisation).then(goBack);
-        }
-    }
-
-    const goBack = () => {
-        history.push("/organisation");
-    };
 
     return (
-        <Container>
-            <Typography variant="h1" color="primary">{t(titleKey)}</Typography>
-            <UpdateForm
-                entity={organisation}
-                fields={organisationFields}
-                prefix='organisation'
-                handleSubmit={handleSubmit}
-                handleChange={e => handleChange(e, setOrganisation)}
+        <>
+            <EntityDetail
+                id={id}
+                entity={entity}
+                setEntity={setEntity}
+                fields={fields}
+                setFields={setFields}
+                entityRest={entityRest}
+                prefix="organisation"
             />
-        </Container>
+        </>
+
     );
 }
 

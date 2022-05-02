@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import OverviewTable from "../../commons/table/OverviewTable";
 import AddressRest from "../../services/AddressRest";
 import {useHistory} from "react-router";
-import {addressFields} from "../../modifiers/AddressModifier";
+import {addressOverviewFields} from "../../modifiers/AddressModifier";
 
 function UserOverview() {
     const [selected, setSelected] = useState(undefined);
@@ -56,7 +56,7 @@ function UserOverview() {
                 prefix={"address"}
                 selected={selected}
                 onSelect={setSelected}
-                fields={addressFields}/>
+                fields={addressOverviewFields}/>
         </Container>
     );
 }

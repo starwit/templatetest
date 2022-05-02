@@ -1,63 +1,53 @@
-import {Container, Typography} from "@mui/material";
-import React, {useState, useMemo, useEffect} from "react";
+import React, {useMemo, useEffect} from "react";
+import {useParams} from "react-router";
 import {useImmer} from "use-immer";
-import {useTranslation} from "react-i18next";
-import UpdateForm from "./../../commons/form/UpdateForm";
-import {useParams, useHistory} from "react-router";
 import AddressRest from "../../services/AddressRest";
-import {handleChange} from "../../modifiers/DefaultModifier";
-import {addressFields, addressDefault} from "../../modifiers/AddressModifier";
+import {
+    entityDefault,
+    entityFields
+} from "../../modifiers/AddressModifier";
+import EntityDetail from "../../commons/form/EntityDetail";
+import {addSelectLists} from "../../modifiers/DefaultModifier";
 
 function AddressDetail() {
-    const {t} = useTranslation();
-    const history = useHistory();
-    const addressRest = useMemo(() => new AddressRest(), []);
-
-    const [address, setAddress] = useImmer(addressDefault);
-    const [titleKey, setTitleKey] = useState(null);
+    const [entity, setEntity] = useImmer(entityDefault);
+    const [fields, setFields] = useImmer(entityFields);
+    const entityRest = useMemo(() => new AddressRest(), []);
     const {id} = useParams();
 
     useEffect(() => {
-        onIdChange();
+        reloadSelectLists();
     }, [id]);
 
-    function onIdChange() {
-        if (!id) {
-            setTitleKey("address.create.title");
-        } else {
-            setTitleKey("address.update.title");
-            addressRest.findById(id).then(response => {
-                setAddress(response.data);
-            });
-        }
+    function reloadSelectLists() {
+        const selectLists = [];
+        const functions = [
+        ];
+        Promise.all(functions).then(values => {
+            if (id) {
+                entityRest.findById(id).then(response => {
+                    setEntity(response.data);
+                    addSelectLists(response.data, fields, setFields, selectLists);
+                });
+            } else {
+                addSelectLists(entity, fields, setFields, selectLists);
+            }
+        });
     }
-
-    function handleSubmit(event) {
-    // turn off page reload
-        event.preventDefault();
-
-        if (!id) {
-            addressRest.create(address).then(goBack);
-        } else {
-            addressRest.update(address).then(goBack);
-        }
-    }
-
-    const goBack = () => {
-        history.push("/address");
-    };
 
     return (
-        <Container>
-            <Typography variant="h1" color="primary">{t(titleKey)}</Typography>
-            <UpdateForm
-                entity={address}
-                fields={addressFields}
-                prefix='address'
-                handleSubmit={handleSubmit}
-                handleChange={e => handleChange(e, setAddress)}
+        <>
+            <EntityDetail
+                id={id}
+                entity={entity}
+                setEntity={setEntity}
+                fields={fields}
+                setFields={setFields}
+                entityRest={entityRest}
+                prefix="address"
             />
-        </Container>
+        </>
+
     );
 }
 

@@ -1,63 +1,61 @@
-import {Container, Typography} from "@mui/material";
-import React, {useState, useMemo, useEffect} from "react";
+import React, {useMemo, useEffect} from "react";
+import {useParams} from "react-router";
 import {useImmer} from "use-immer";
-import {useTranslation} from "react-i18next";
-import UpdateForm from "./../../commons/form/UpdateForm";
-import {useParams, useHistory} from "react-router";
 import UserRest from "../../services/UserRest";
-import {handleChange} from "../../modifiers/DefaultModifier";
-import {userFields, userDefault} from "../../modifiers/UserModifier";
+import AddressRest from "../../services/AddressRest";
+import OrganisationRest from "../../services/OrganisationRest";
+import {
+    entityDefault,
+    entityFields
+} from "../../modifiers/UserModifier";
+import EntityDetail from "../../commons/form/EntityDetail";
+import {addSelectLists} from "../../modifiers/DefaultModifier";
 
 function UserDetail() {
-    const {t} = useTranslation();
-    const history = useHistory();
-    const userRest = useMemo(() => new UserRest(), []);
-
-    const [user, setUser] = useImmer(userDefault);
-    const [titleKey, setTitleKey] = useState(null);
+    const [entity, setEntity] = useImmer(entityDefault);
+    const [fields, setFields] = useImmer(entityFields);
+    const entityRest = useMemo(() => new UserRest(), []);
+    const addressRest = useMemo(() => new AddressRest(), []);
+    const organisationRest = useMemo(() => new OrganisationRest(), []);
     const {id} = useParams();
 
     useEffect(() => {
-        onIdChange();
+        reloadSelectLists();
     }, [id]);
 
-    function onIdChange() {
-        if (!id) {
-            setTitleKey("user.create.title");
-        } else {
-            setTitleKey("user.update.title");
-            userRest.findById(id).then(response => {
-                setUser(response.data);
-            });
-        }
+    function reloadSelectLists() {
+        const selectLists = [];
+        const functions = [
+            addressRest.findAllWithoutUser(),
+            organisationRest.findAll()
+        ];
+        Promise.all(functions).then(values => {
+            selectLists.push({name: "address", data: values[0].data});
+            selectLists.push({name: "organisation", data: values[1].data});
+            if (id) {
+                entityRest.findById(id).then(response => {
+                    setEntity(response.data);
+                    addSelectLists(response.data, fields, setFields, selectLists);
+                });
+            } else {
+                addSelectLists(entity, fields, setFields, selectLists);
+            }
+        });
     }
-
-    function handleSubmit(event) {
-    // turn off page reload
-        event.preventDefault();
-
-        if (!id) {
-            userRest.create(user).then(goBack);
-        } else {
-            userRest.update(user).then(goBack);
-        }
-    }
-
-    const goBack = () => {
-        history.push("/user");
-    };
 
     return (
-        <Container>
-            <Typography variant="h1" color="primary">{t(titleKey)}</Typography>
-            <UpdateForm
-                entity={user}
-                fields={userFields}
-                prefix='user'
-                handleSubmit={handleSubmit}
-                handleChange={e => handleChange(e, setUser)}
+        <>
+            <EntityDetail
+                id={id}
+                entity={entity}
+                setEntity={setEntity}
+                fields={fields}
+                setFields={setFields}
+                entityRest={entityRest}
+                prefix="user"
             />
-        </Container>
+        </>
+
     );
 }
 

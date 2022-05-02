@@ -1,17 +1,16 @@
 package de.sim.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotBlank;
 import javax.persistence.OneToOne;
-import javax.persistence.CascadeType;
-import javax.persistence.JoinTable;
-import java.util.Set;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Organisation Entity class
@@ -21,25 +20,22 @@ import java.util.Set;
 @Table(name = "ORGANISATION")
 public class OrganisationEntity extends AbstractEntity<Long> {
 
-//entity fields
+    // entity fields
     @NotBlank
-    @Column(name="NAME", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-
-//entity relations
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
+    // entity relations
+    @JsonFilter("filterId")
+    @OneToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID", unique = true)
     private AddressEntity address;
 
-    @ManyToMany
-    @JoinTable(
-        name = "ORGANISATION_USER", 
-        joinColumns = @JoinColumn(name = "ORGANISATION_ID"), 
-        inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    @JsonFilter("filterId")
+    @ManyToMany(mappedBy = "organisation")
     private Set<UserEntity> user;
 
-//entity fields getters and setters
+    // entity fields getters and setters
     public String getName() {
         return name;
     }
@@ -48,7 +44,7 @@ public class OrganisationEntity extends AbstractEntity<Long> {
         this.name = name;
     }
 
-//entity relations getters and setters
+    // entity relations getters and setters
     public AddressEntity getAddress() {
         return address;
     }

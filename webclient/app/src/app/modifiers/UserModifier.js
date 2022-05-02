@@ -1,12 +1,44 @@
-const userDefault = {
+const entityDefault = {
     firstName: "",
     lastName: "",
     id: undefined
 };
 
-const userFields = [
-    {name: "firstName", type: "string", regex: /^[A-Z][a-zA-Z0-9]{1,100}$/},
-    {name: "lastName", type: "string", regex: /^[A-Z][a-zA-Z0-9]{1,100}$/},
+const entityFields = [
+    {name: "firstName", type: "string", regex: null},
+    {name: "lastName", type: "string", regex: null},
+    {
+        name: "address",
+        type: "OneToOne",
+        regex: null,
+        selectList: [],
+        display: [
+            "city",
+            "street",
+            "streetNr",
+            "cityCode"
+        ],
+        selectedIds: []
+    },
+    {
+        name: "organisation",
+        type: "ManyToMany",
+        regex: null,
+        selectList: [],
+        display: [
+            "name"
+        ],
+        selectedIds: []
+    }
 ];
 
-export {userDefault, userFields};
+const userOverviewFields = [
+    {name: "firstName", type: "string", regex: null},
+    {name: "lastName", type: "string", regex: null}
+];
+
+export {
+    entityDefault,
+    entityFields,
+    userOverviewFields
+};

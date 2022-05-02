@@ -1,10 +1,31 @@
-const organisationDefault = {
+const entityDefault = {
     name: "",
     id: undefined
 };
 
-const organisationFields = [
+const entityFields = [
     {name: "name", type: "string", regex: null},
+    {
+        name: "address",
+        type: "OneToOne",
+        regex: null,
+        selectList: [],
+        display: [
+            "city",
+            "street",
+            "streetNr",
+            "cityCode"
+        ],
+        selectedIds: []
+    },
 ];
 
-export {organisationDefault, organisationFields};
+const organisationOverviewFields = [
+    {name: "name", type: "string", regex: null}
+];
+
+export {
+    entityDefault,
+    entityFields,
+    organisationOverviewFields
+};

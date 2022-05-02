@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import OverviewTable from "../../commons/table/OverviewTable";
 import UserRest from "../../services/UserRest";
 import {useHistory} from "react-router";
-import {userFields} from "../../modifiers/UserModifier";
+import {userOverviewFields} from "../../modifiers/UserModifier";
 
 function UserOverview() {
     const [selected, setSelected] = useState(undefined);
@@ -56,7 +56,7 @@ function UserOverview() {
                 prefix={"user"}
                 selected={selected}
                 onSelect={setSelected}
-                fields={userFields}/>
+                fields={userOverviewFields}/>
         </Container>
     );
 }

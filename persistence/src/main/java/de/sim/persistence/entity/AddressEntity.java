@@ -1,11 +1,11 @@
 package de.sim.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import javax.persistence.OneToOne;
 
 /**
  * Address Entity class
@@ -15,28 +15,29 @@ import javax.persistence.OneToOne;
 @Table(name = "ADDRESS")
 public class AddressEntity extends AbstractEntity<Long> {
 
-//entity fields
-    @Column(name="CITY")
+    // entity fields
+    @Column(name = "CITY")
     private String city;
 
-    @Column(name="STREET")
+    @Column(name = "STREET")
     private String street;
 
-    @Column(name="STREETNR")
+    @Column(name = "STREETNR")
     private String streetNr;
 
-    @Column(name="CITYCODE")
+    @Column(name = "CITYCODE")
     private String cityCode;
 
-
-//entity relations
+    // entity relations
+    @JsonFilter("filterId")
     @OneToOne(mappedBy = "address")
     private OrganisationEntity organisation;
 
+    @JsonFilter("filterId")
     @OneToOne(mappedBy = "address")
     private UserEntity user;
 
-//entity fields getters and setters
+    // entity fields getters and setters
     public String getCity() {
         return city;
     }
@@ -69,7 +70,7 @@ public class AddressEntity extends AbstractEntity<Long> {
         this.cityCode = cityCode;
     }
 
-//entity relations getters and setters
+    // entity relations getters and setters
     public OrganisationEntity getOrganisation() {
         return organisation;
     }

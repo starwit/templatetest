@@ -45,6 +45,17 @@ public class AddressController {
         return this.addressService.findAll();
     }
 
+    @Operation(summary = "Get all address without organisation")
+    @GetMapping(value = "find-without-organisation")
+    public List<AddressEntity> findAllWithoutOrganisation() {
+        return addressService.findAllWithoutOrganisation();
+    }
+    @Operation(summary = "Get all address without user")
+    @GetMapping(value = "find-without-user")
+    public List<AddressEntity> findAllWithoutUser() {
+        return addressService.findAllWithoutUser();
+    }
+
     @Operation(summary = "Get address with id")
     @GetMapping(value = "/{id}")
     public AddressEntity findById(@PathVariable("id") Long id) {
