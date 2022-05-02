@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "USER")
 public class UserEntity extends AbstractEntity<Long> {
 
-//entity fields
+    // entity fields
     @NotBlank
     @Column(name = "FIRSTNAME", nullable = false)
     private String firstName;
@@ -30,11 +30,10 @@ public class UserEntity extends AbstractEntity<Long> {
     @Column(name = "LASTNAME", nullable = false)
     private String lastName;
 
-
-//entity relations
+    // entity relations
     @JsonFilter("filterId")
     @OneToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID", unique = true)
     private AddressEntity address;
 
     @JsonFilter("filterId")
@@ -45,7 +44,7 @@ public class UserEntity extends AbstractEntity<Long> {
         inverseJoinColumns = @JoinColumn(name = "ORGANISATION_ID"))
     private Set<OrganisationEntity> organisation;
 
-//entity fields getters and setters
+    // entity fields getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -62,7 +61,7 @@ public class UserEntity extends AbstractEntity<Long> {
         this.lastName = lastName;
     }
 
-//entity relations getters and setters
+    // entity relations getters and setters
     public AddressEntity getAddress() {
         return address;
     }

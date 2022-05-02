@@ -45,6 +45,12 @@ public class OrganisationController {
         return this.organisationService.findAll();
     }
 
+    @Operation(summary = "Get all organisation without address")
+    @GetMapping(value = "find-without-address")
+    public List<OrganisationEntity> findAllWithoutAddress() {
+        return organisationService.findAllWithoutAddress();
+    }
+
     @Operation(summary = "Get organisation with id")
     @GetMapping(value = "/{id}")
     public OrganisationEntity findById(@PathVariable("id") Long id) {

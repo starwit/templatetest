@@ -26,7 +26,7 @@ function UserDetail() {
     function reloadSelectLists() {
         const selectLists = [];
         const functions = [
-            addressRest.findAll(),
+            addressRest.findAllWithoutUser(),
             organisationRest.findAll()
         ];
         Promise.all(functions).then(values => {

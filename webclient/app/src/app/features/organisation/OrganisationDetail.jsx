@@ -24,7 +24,7 @@ function OrganisationDetail() {
     function reloadSelectLists() {
         const selectLists = [];
         const functions = [
-            addressRest.findAll(),
+            addressRest.findAllWithoutOrganisation(),
         ];
         Promise.all(functions).then(values => {
             selectLists.push({name: "address", data: values[0].data});

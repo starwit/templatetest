@@ -45,6 +45,12 @@ public class UserController {
         return this.userService.findAll();
     }
 
+    @Operation(summary = "Get all user without address")
+    @GetMapping(value = "find-without-address")
+    public List<UserEntity> findAllWithoutAddress() {
+        return userService.findAllWithoutAddress();
+    }
+
     @Operation(summary = "Get user with id")
     @GetMapping(value = "/{id}")
     public UserEntity findById(@PathVariable("id") Long id) {

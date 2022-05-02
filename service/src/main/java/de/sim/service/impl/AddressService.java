@@ -1,5 +1,5 @@
 package de.sim.service.impl;
-
+import java.util.List;
 import de.sim.persistence.entity.AddressEntity;
 import de.sim.persistence.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +21,10 @@ public class AddressService implements ServiceInterface<AddressEntity, AddressRe
         return addressRepository;
     }
 
+    public List<AddressEntity> findAllWithoutOrganisation() {
+        return addressRepository.findAllWithoutOrganisation();
+    }
+    public List<AddressEntity> findAllWithoutUser() {
+        return addressRepository.findAllWithoutUser();
+    }
 }
