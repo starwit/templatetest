@@ -32,17 +32,17 @@ public class UserEntity extends AbstractEntity<Long> {
 
     // entity relations
     @JsonFilter("filterId")
-    @OneToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID", unique = true)
-    private AddressEntity address;
-
-    @JsonFilter("filterId")
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
         name = "USER_ORGANISATION", 
         joinColumns = @JoinColumn(name = "USER_ID"), 
         inverseJoinColumns = @JoinColumn(name = "ORGANISATION_ID"))
     private Set<OrganisationEntity> organisation;
+
+    @JsonFilter("filterId")
+    @OneToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ID", unique = true)
+    private AddressEntity address;
 
     // entity fields getters and setters
     public String getFirstName() {
@@ -62,20 +62,20 @@ public class UserEntity extends AbstractEntity<Long> {
     }
 
     // entity relations getters and setters
-    public AddressEntity getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressEntity address) {
-        this.address = address;
-    }
-
     public Set<OrganisationEntity> getOrganisation() {
         return organisation;
     }
 
     public void setOrganisation(Set<OrganisationEntity> organisation) {
         this.organisation = organisation;
+    }
+
+    public AddressEntity getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressEntity address) {
+        this.address = address;
     }
 
 }

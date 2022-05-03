@@ -8,6 +8,16 @@ const entityFields = [
     {name: "firstName", type: "string", regex: null},
     {name: "lastName", type: "string", regex: null},
     {
+        name: "organisation",
+        type: "ManyToMany",
+        regex: null,
+        selectList: [],
+        display: [
+            "name"
+        ],
+        selectedIds: []
+    },
+    {
         name: "address",
         type: "OneToOne",
         regex: null,
@@ -17,16 +27,6 @@ const entityFields = [
             "street",
             "streetNr",
             "cityCode"
-        ],
-        selectedIds: []
-    },
-    {
-        name: "organisation",
-        type: "ManyToMany",
-        regex: null,
-        selectList: [],
-        display: [
-            "name"
         ],
         selectedIds: []
     }
